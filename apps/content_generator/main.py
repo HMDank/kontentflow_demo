@@ -18,8 +18,6 @@ generation_config = {
 model = genai.GenerativeModel(model_name="gemini-pro",
                               generation_config=generation_config)
 
-
-
 global PREV_LACKED_KEYWORDS, PREV_CONTENT_CACHE
 max_iterations = 1
 PREV_CONTENT_CACHE = {}
