@@ -18,7 +18,7 @@ generation_config = {
 model = genai.GenerativeModel(model_name="gemini-pro",
                               generation_config=generation_config)
 
-# client = OpenAI(api_key="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")
+
 
 global PREV_LACKED_KEYWORDS, PREV_CONTENT_CACHE
 max_iterations = 1
@@ -93,66 +93,66 @@ def generate_gemini_content(prompt):
 
 
 # Function to generate content using GPT-4
-def generate_gpt_content(prompt):
-    # Generate initial content
-    completion = client.chat.completions.create(
-        messages=[
-            {
-                "role": "user",
-                "content": f"{prompt}",
-            }
-        ],
-        model="gpt-4-1106-preview",
-    )
+# def generate_gpt_content(prompt):
+#     # Generate initial content
+#     completion = client.chat.completions.create(
+#         messages=[
+#             {
+#                 "role": "user",
+#                 "content": f"{prompt}",
+#             }
+#         ],
+#         model="gpt-4-1106-preview",
+#     )
 
-    content = completion.choices[0].message.content
-    return content
+#     content = completion.choices[0].message.content
+#     return content
 
 
-def gemini_test(keyword_string: str, limit: int):
-    print(f'counter = {limit}')
-    global PREV_OVERUSED_KEYWORDS, PREV_UNDERUSED_KEYWORDS, PREV_CONTENT_CACHE
-    keyword_list = [keyword.strip() for keyword in keyword_string.split(",")]
+# def gemini_test(keyword_string: str, limit: int):
+#     print(f'counter = {limit}')
+#     global PREV_OVERUSED_KEYWORDS, PREV_UNDERUSED_KEYWORDS, PREV_CONTENT_CACHE
+#     keyword_list = [keyword.strip() for keyword in keyword_string.split(",")]
 
-    prev_content_cache = PREV_CONTENT_CACHE.get(keyword_string, "")
-    prev_underused_keywords = PREV_UNDERUSED_KEYWORDS.get(keyword_string, "")
+#     prev_content_cache = PREV_CONTENT_CACHE.get(keyword_string, "")
+#     prev_underused_keywords = PREV_UNDERUSED_KEYWORDS.get(keyword_string, "")
 
-    if not prev_content_cache:
-        initial_prompt = f"""
-        You are a content marketer, write an SEO optimized content using Markdown format, using the following list of keywords.
+#     if not prev_content_cache:
+#         initial_prompt = f"""
+#         You are a content marketer, write an SEO optimized content using Markdown format, using the following list of keywords.
 
-        The list of keywords:
-        {keyword_string}
+#         The list of keywords:
+#         {keyword_string}
 
-        The content should be written in a reader-friendly and approachable style. The ultimate goal is to help the article rank high in SEO rankings.
+#         The content should be written in a reader-friendly and approachable style. The ultimate goal is to help the article rank high in SEO rankings.
 
-        Please recognize the language of the keywords and use it to build the blog. It will consist of the following parts:
+#         Please recognize the language of the keywords and use it to build the blog. It will consist of the following parts:
 
-        - Appealing headline: Capture the reader's attention and reflect the content of the blog.
-        - Introduction: Provide context, purpose, and main content of the blog.
-        - Body
-        - Conclusion: Summarize the main points of the blog and leave a lasting impression on the reader.
+#         - Appealing headline: Capture the reader's attention and reflect the content of the blog.
+#         - Introduction: Provide context, purpose, and main content of the blog.
+#         - Body
+#         - Conclusion: Summarize the main points of the blog and leave a lasting impression on the reader.
 
-        Please ensure the blog is fully written with a minimum length of 1000 words, and contains all of the keywords. If no keyword is omitted, I will tip you $100.
-        """
-    else:
-        initial_prompt = f"""
-        You are a content marketer specialized in writing SEO content. Rewrite the following text so that all of the keywords in the given keyword list are included in the final result.
-        Make sure that the final blog post in in Markdown format, contains at least 5 headings and all of the keywords listed below.
-        Keywords to add:
-        {prev_underused_keywords}
+#         Please ensure the blog is fully written with a minimum length of 1000 words, and contains all of the keywords. If no keyword is omitted, I will tip you $100.
+#         """
+#     else:
+#         initial_prompt = f"""
+#         You are a content marketer specialized in writing SEO content. Rewrite the following text so that all of the keywords in the given keyword list are included in the final result.
+#         Make sure that the final blog post in in Markdown format, contains at least 5 headings and all of the keywords listed below.
+#         Keywords to add:
+#         {prev_underused_keywords}
 
-        The Text:
-        {prev_content_cache}
-        """
-    generated_content = generate_gemini_content(initial_prompt)
-    results = evaluate(generated_content, keyword_list)
+#         The Text:
+#         {prev_content_cache}
+#         """
+#     generated_content = generate_gemini_content(initial_prompt)
+#     results = evaluate(generated_content, keyword_list)
 
-    PREV_CONTENT_CACHE[keyword_string] = generated_content
-    PREV_UNDERUSED_KEYWORDS[keyword_string] = results[2]
-    good_condition = results[1] >= 0.95  # and underused_keywords.count(',') < 5
-    print(f"{results[1]}, {prev_underused_keywords}")
-    return results if good_condition or limit == 1 else gemini_test(keyword_string, limit - 1)
+#     PREV_CONTENT_CACHE[keyword_string] = generated_content
+#     PREV_UNDERUSED_KEYWORDS[keyword_string] = results[2]
+#     good_condition = results[1] >= 0.95  # and underused_keywords.count(',') < 5
+#     print(f"{results[1]}, {prev_underused_keywords}")
+#     return results if good_condition or limit == 1 else gemini_test(keyword_string, limit - 1)
 
 
 # demo = gr.Interface(
