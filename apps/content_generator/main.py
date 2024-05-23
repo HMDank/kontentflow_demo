@@ -18,7 +18,7 @@ generation_config = {
 model = genai.GenerativeModel(model_name="gemini-pro",
                               generation_config=generation_config)
 
-client = OpenAI(api_key="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")
+# client = OpenAI(api_key="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")
 
 global PREV_LACKED_KEYWORDS, PREV_CONTENT_CACHE
 max_iterations = 1
