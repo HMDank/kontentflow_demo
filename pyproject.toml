@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "seo-gpt"
+version = "0.1.0"
+description = ""
+authors = ["Patrick <me@patrickphat.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+yt-dlp = "^2023.11.16"
+schedule = "^1.2.1"
+youtube-transcript-api = "^0.6.1"
+niq = "^1.2.2"
+ipdb = "^0.13.13"
+tqdm = "^4.66.1"
+google-api-python-client = "^2.111.0"
+google-auth-httplib2 = "^0.2.0"
+google-auth-oauthlib = "^1.2.0"
+gspread = "^5.12.2"
+pandas = "^2.1.4"
+underthesea = "^6.8.0"
+dateparser = "^1.2.0"
+pydantic = "^2.5.2"
+googlesearch-python = "^1.2.3"
+openai = "^1.5.0"
+gradio = "^4.11.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
